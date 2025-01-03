@@ -4,6 +4,9 @@ import Image from 'next/image'
 import appLogo from './assets/logo.png'
 import { useChat } from 'ai/react'
 import { Message } from 'ai'
+import PromptSuggestionRow from './components/PromptSuggestionRow'
+import LoadingBubble from './components/LoadingBubble'
+import Bubble from './components/Bubble'
 
 const Home = () => {
     const { append, isLoading, messages, input, handleInputChange, handleSubmit } = useChat()
@@ -14,45 +17,32 @@ const Home = () => {
         <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
             {/* App Logo */}
             <div className="flex items-center justify-center py-6">
-                <Image src={appLogo} width="150" height="150" alt="app logo" />
+                <Image src={appLogo} width="250" height="250" alt="app logo" />
             </div>
-            
+
             {/* Chat Container */}
             <section className="w-full max-w-2xl bg-white rounded-xl shadow-xl p-6 space-y-4">
-                
+
                 {/* Chat Messages */}
-                <div className="overflow-y-auto max-h-96 space-y-4 p-4">
+                <div className="overflow-y-auto max-h-96 space-y-4 p-4 flex flex-col items-center">
                     {noMessages ? (
                         <>
                             <p className="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc venenatis, orci ut vestibulum euismod, felis risus mattis orci, ut commodo justo ligula vel libero.</p>
                             <br />
-                            {/* <PromptSuggestionRow /> */}
+                            <PromptSuggestionRow />
                         </>
                     ) : (
                         <>
                             {/* Loop over messages and show them as bubbles */}
-                            {messages.map((msg, idx) => (
-                                <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                                    <div
-                                        className={`max-w-xs p-3 rounded-lg text-white ${
-                                            msg.role === 'user' ? 'bg-blue-500' : 'bg-gray-500'
-                                        }`}
-                                    >
-                                        <p>{msg.content}</p>
-                                    </div>
-                                </div>
-                            ))}
+                            {messages.map((message, index) => <Bubble key={`message-${index}`} msg={message} />)}
                             {isLoading && (
-                                <div className="flex justify-start">
-                                    <div className="max-w-xs p-3 bg-gray-300 text-gray-600 rounded-lg">
-                                        <p>Loading...</p>
-                                    </div>
-                                </div>
+                                <LoadingBubble />
                             )}
+<Bubble msg='hello'/>
                         </>
                     )}
                 </div>
-                
+
                 {/* Input Form */}
                 <form onSubmit={handleSubmit} className="flex items-center space-x-2">
                     <input
