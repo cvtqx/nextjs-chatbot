@@ -27,19 +27,21 @@ const Home = () => {
                 <div className="overflow-y-auto max-h-96 space-y-4 p-4 flex flex-col items-center">
                     {noMessages ? (
                         <>
-                            <p className="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc venenatis, orci ut vestibulum euismod, felis risus mattis orci, ut commodo justo ligula vel libero.</p>
-                            <br />
+                            <div className="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc venenatis, orci ut vestibulum euismod, felis risus mattis orci, ut commodo justo ligula vel libero.</div>
+                            
                             <PromptSuggestionRow />
                         </>
                     ) : (
-                        <>
+                        <div className='flex flex-row gap-4'>
                             {/* Loop over messages and show them as bubbles */}
                             {messages.map((message, index) => <Bubble key={`message-${index}`} msg={message} />)}
                             {isLoading && (
                                 <LoadingBubble />
                             )}
-<Bubble msg='hello'/>
-                        </>
+                                <Bubble msg='hello' />
+                                <Bubble msg='goodbye' />
+                                <Bubble msg='yuck' />
+                        </div>
                     )}
                 </div>
 
