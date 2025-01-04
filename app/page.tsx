@@ -24,12 +24,13 @@ const Home = () => {
             <section className="w-full max-w-2xl bg-white rounded-xl shadow-xl p-6 space-y-4">
 
                 {/* Chat Messages */}
-                <div className="overflow-y-auto max-h-96 space-y-4 p-4 flex flex-col items-center">
-                    {noMessages ? (
+                <div className="max-h-96 space-y-4 p-4 flex flex-col items-center">
+                    {!noMessages ? (
                         <>
-                            <div className="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc venenatis, orci ut vestibulum euismod, felis risus mattis orci, ut commodo justo ligula vel libero.</div>
+                            <div className="text-gray-600 overflow-none">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc venenatis, orci ut vestibulum euismod, felis risus mattis orci, ut commodo justo ligula vel libero.</div>
                             
-                            <PromptSuggestionRow />
+                                <PromptSuggestionRow />
+                           
                         </>
                     ) : (
                         <div className='flex flex-row gap-4'>
@@ -38,9 +39,9 @@ const Home = () => {
                             {isLoading && (
                                 <LoadingBubble />
                             )}
-                                <Bubble msg='hello' />
+                                {/* <Bubble msg='hello' />
                                 <Bubble msg='goodbye' />
-                                <Bubble msg='yuck' />
+                                <Bubble msg='yuck' /> */}
                         </div>
                     )}
                 </div>
