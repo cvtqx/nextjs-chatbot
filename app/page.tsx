@@ -8,10 +8,21 @@ import PromptSuggestionRow from './components/PromptSuggestionRow'
 import LoadingBubble from './components/LoadingBubble'
 import Bubble from './components/Bubble'
 
+import { v4 as uuidv4 } from 'uuid';
+
 const Home = () => {
     const { append, isLoading, messages, input, handleInputChange, handleSubmit } = useChat()
 
     const noMessages = false
+    
+    const handlePromptClick = (promptText) => {
+        const message: Message = {
+            id: uuidv4(),
+            content: promptText,
+            role: 'user'
+        }
+        append(message)
+    }
 
     return (
         <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
@@ -29,7 +40,7 @@ const Home = () => {
                         <>
                             <div className="text-gray-600 overflow-none">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc venenatis, orci ut vestibulum euismod, felis risus mattis orci, ut commodo justo ligula vel libero.</div>
                             
-                                <PromptSuggestionRow />
+                            <PromptSuggestionRow onPromptClick={handlePromptClick} />
                            
                         </>
                     ) : (

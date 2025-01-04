@@ -1,7 +1,7 @@
 import React from 'react'
 import PromptSuggestion from './PromptSuggestion'
 
-const PromptSuggestionRow = () => {
+const PromptSuggestionRow = ({onPromptClick}) => {
   
   const prompts = [
     "Can you help me create a Yin Yoga session for beginners?",
@@ -11,7 +11,7 @@ const PromptSuggestionRow = () => {
     "Can you create a 60-minute Yin Yoga session for me?"
   ]
   return (
-    <div className='flex flex-row gap-4 w-full overflow-x-scroll overflow-y-hidden'>{prompts.map((prompt, index) => { return <PromptSuggestion key={`prompt-${index}`} prompt={prompt} onClick={()=> console.log('click')} /> })}</div>
+    <div className='flex flex-row gap-4 w-full overflow-x-scroll overflow-y-hidden'>{prompts.map((prompt, index) => <PromptSuggestion key={`prompt-${index}`} prompt={prompt} onClick={() => onPromptClick(prompt)} />) }</div>
   )
 }
 
