@@ -13,8 +13,8 @@ import { v4 as uuidv4 } from 'uuid';
 const Home = () => {
     const { append, isLoading, messages, input, handleInputChange, handleSubmit } = useChat()
 
-    const noMessages = false
-    
+    const noMessages = !messages || messages.length === 0
+
     const handlePromptClick = (promptText) => {
         const message: Message = {
             id: uuidv4(),
@@ -24,6 +24,7 @@ const Home = () => {
         append(message)
     }
 
+    console.log('messages', messages)
     return (
         <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
             {/* App Logo */}
@@ -36,7 +37,7 @@ const Home = () => {
 
                 {/* Chat Messages */}
                 <div className="max-h-96 space-y-4 p-4 flex flex-col items-center">
-                    {!noMessages ? (
+                    {noMessages ? (
                         <>
                             <div className="text-gray-600 overflow-none">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc venenatis, orci ut vestibulum euismod, felis risus mattis orci, ut commodo justo ligula vel libero.</div>
                             
@@ -44,7 +45,7 @@ const Home = () => {
                            
                         </>
                     ) : (
-                        <div className='flex flex-row gap-4'>
+                        <div className='flex flex-col gap-4'>
                             {/* Loop over messages and show them as bubbles */}
                             {messages.map((message, index) => <Bubble key={`message-${index}`} msg={message} />)}
                             {isLoading && (
