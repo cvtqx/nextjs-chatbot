@@ -5,9 +5,9 @@ const Bubble = ({ msg }) => {
     const { content, role } = msg
     
     return (
-        <div className={`flex flex-row ${role === 'user' ? 'justify-end' : 'justify-start'}`}>
+        <div className={`flex flex-row p-3 chat ${role === 'user' ? 'justify-end chat-end' : 'justify-start chat-start'}`}>
             <div
-                className={`max-w-xs p-3 rounded-lg text-white ${role === 'user' ? 'bg-blue-500' : 'bg-gray-500'
+                className={`chat-bubble p-3 rounded-lg text-white ${role === 'user' ? 'bg-limegreen' : 'bg-gray-400'
                     }`}
             >
                 <p>{content}</p>

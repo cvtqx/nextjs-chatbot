@@ -28,15 +28,15 @@ const Home = () => {
     return (
         <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
             {/* App Logo */}
-            <div className="flex items-center justify-center py-6">
-                <Image src={appLogo} width="250" height="250" alt="app logo" />
+            <div className="flex items-center justify-center py-4">
+                <Image src={appLogo} width="150" height="150" alt="app logo" />
             </div>
 
             {/* Chat Container */}
             <section className="w-full max-w-2xl bg-white rounded-xl shadow-xl p-6 space-y-4">
 
                 {/* Chat Messages */}
-                <div className="max-h-96 space-y-4 p-4 flex flex-col items-center">
+                <div className="max-h-full space-y-4 p-4 flex flex-col items-center">
                     {noMessages ? (
                         <>
                             <div className="text-gray-600 overflow-none">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc venenatis, orci ut vestibulum euismod, felis risus mattis orci, ut commodo justo ligula vel libero.</div>
@@ -45,15 +45,13 @@ const Home = () => {
                            
                         </>
                     ) : (
-                        <div className='flex flex-col gap-4'>
+                            <div className='flex flex-col gap-4 max-h-screen overflow-y-auto overflow-x-hidden'>
                             {/* Loop over messages and show them as bubbles */}
                             {messages.map((message, index) => <Bubble key={`message-${index}`} msg={message} />)}
                             {isLoading && (
                                 <LoadingBubble />
                             )}
-                                {/* <Bubble msg='hello' />
-                                <Bubble msg='goodbye' />
-                                <Bubble msg='yuck' /> */}
+
                         </div>
                     )}
                 </div>

@@ -9,6 +9,7 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        'limegreen': '#82c6a4',
       },
     },
   },
