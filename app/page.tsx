@@ -11,20 +11,33 @@ import Bubble from './components/Bubble'
 import { v4 as uuidv4 } from 'uuid';
 
 import WeatherInfo from './components/Weather'
+import { useState } from 'react'
 
 const Home = () => {
-    const { append, isLoading, messages, input, handleInputChange, handleSubmit } = useChat()
+    const { append, isLoading, messages, input, handleInputChange, handleSubmit, stop } = useChat()
+    const [weatherData, setWeatherData] = useState(null)
 
     const noMessages = !messages || messages.length === 0
 
     const handlePromptClick = (promptText) => {
+    
+        const weatherInfo = weatherData
+            ? ` The weather in ${weatherData.city} is currently ${weatherData.temperature}°C with ${weatherData.description}.`
+            : '';
+        
+        const combinedPrompt = promptText + weatherInfo;
+        
         const message: Message = {
             id: uuidv4(),
             content: promptText,
             role: 'user'
         }
-        console.log(promptText)
+        console.log(message)
         append(message)
+    }
+
+    const handleWeatherData = (data) => {
+        setWeatherData(data)
     }
 
     return (
@@ -34,7 +47,7 @@ const Home = () => {
                 <Image src={appLogo} width="150" height="150" alt="app logo" />
             </div>
             <div className='absolute top-4 right-6'>
-                <WeatherInfo  />
+                <WeatherInfo onWeatherData={handleWeatherData} />
     </div>
             {/* Chat Container */}
             <section className="w-full max-w-2xl bg-white rounded-xl shadow-xl p-6 space-y-4">
@@ -52,8 +65,24 @@ const Home = () => {
                             <div className='flex flex-col gap-4 max-h-screen overflow-y-auto overflow-x-hidden'>
                             {/* Loop over messages and show them as bubbles */}
                             {messages.map((message, index) => <Bubble key={`message-${index}`} msg={message} />)}
-                            {isLoading && (
-                                <LoadingBubble />
+                                {isLoading && (
+                                    <div className="flex justify-between">
+                                        <LoadingBubble />
+                                        <button type="button" className="btn btn-circle btn-outline text-gray-400" onClick={() => stop()}> <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-6 w-6"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth="2"
+                                                d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                        </button>
+                                    </div>
+                                
                             )}
 
                         </div>
