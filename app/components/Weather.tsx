@@ -17,15 +17,21 @@ const WeatherInfo = ({onWeatherData}) => {
     const fetchWeather = async () => {
       const weatherData = await getCurrentWeather()
 
-      const weatherInfo: WeatherInfo = {
-        temperature: weatherData.temperature,  
-        condition: weatherData.condition,
-        icon: weatherData.icon,
-        city: weatherData.city,
-        humidity: weatherData.humidity,
+      if (weatherData === null || typeof weatherData === 'string') {
+        console.error("Error fetching weather data.")
+      } else {
+        const weatherInfo: WeatherInfo = {
+          temperature: weatherData.temperature,
+          condition: weatherData.condition,
+          icon: weatherData.icon,
+          city: weatherData.city,
+          humidity: weatherData.humidity,
+        }
+        setWeather(weatherInfo)
+        onWeatherData(weatherInfo)
+     
       };
-      setWeather(weatherInfo)
-      onWeatherData(weatherInfo)
+      
     }
     fetchWeather()
   }, [])
