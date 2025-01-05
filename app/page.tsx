@@ -9,11 +9,19 @@ import LoadingBubble from './components/LoadingBubble'
 import Bubble from './components/Bubble'
 
 import { v4 as uuidv4 } from 'uuid';
+import { useEffect, useState } from 'react'
+import getUserLocation from './utils/getLocation'
 
 const Home = () => {
     const { append, isLoading, messages, input, handleInputChange, handleSubmit } = useChat()
+    const [location, setLocation] = useState<string>('')
 
     const noMessages = !messages || messages.length === 0
+
+    useEffect(() => {
+        const result = getUserLocation()
+        setLocation(result) 
+    }, [])
 
     const handlePromptClick = (promptText) => {
         const message: Message = {
@@ -24,14 +32,18 @@ const Home = () => {
         append(message)
     }
 
-    console.log('messages', messages)
     return (
         <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
             {/* App Logo */}
             <div className="flex items-center justify-center py-4">
                 <Image src={appLogo} width="150" height="150" alt="app logo" />
             </div>
-
+            <div className='absolute top-4 right-6'>
+                <h2 className="text-sm">
+                    Your current location:
+                    <span className="badge badge-md">{location}</span>
+                </h2>
+    </div>
             {/* Chat Container */}
             <section className="w-full max-w-2xl bg-white rounded-xl shadow-xl p-6 space-y-4">
 
