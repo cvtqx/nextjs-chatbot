@@ -17,7 +17,8 @@ export default async function getUserLocation() {
     const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}`)
     const data = await response.json()
 
-    const cityName = data.results[0]?.components.city || data.results[0]?.components.town || 'Unknown City'
+    const cityName = data.results[0]?.components.town || 'Unknown City'
+    console.log(cityName)
     return cityName
 
   } catch (error) {
