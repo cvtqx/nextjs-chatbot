@@ -1,8 +1,8 @@
 import './index.css'
 
 export const metadata = {
-    title: 'ActivityBot',
-    description: 'Get recommendations of activities based on the weather in your location'
+    title: 'YinYoga Bot',
+    description: 'Get recommendations of yin yoga sequences based on the weather in your location'
 }
 
 const RootLayout = ({ children }) => {
