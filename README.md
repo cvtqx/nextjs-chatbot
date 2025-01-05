@@ -38,6 +38,10 @@ A calm and soothing Yin Yoga chatbot built with Next.js and TypeScript. This cha
    
 5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+### Architecture Diagram
+![Architecture Diagram](public/images/architectureDiagram.png)
+
+Can also be veiwed via a code editor: [here](https://github.com/cvtqx/nextjs-chatbot/blob/main/architecture.excalidraw)
 
 ### Usage
 
