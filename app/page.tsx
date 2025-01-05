@@ -23,6 +23,7 @@ const Home = () => {
             content: promptText,
             role: 'user'
         }
+        console.log(promptText)
         append(message)
     }
 

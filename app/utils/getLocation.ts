@@ -12,14 +12,14 @@ export default async function getUserLocation() {
     })
 
     const { latitude, longitude } = position.coords
-    
+  console.log(position);
     // Fetch city name using OpenCage API
     const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}`)
     const data = await response.json()
 
     const cityName = data.results[0]?.components.town || 'Unknown City'
-    console.log(cityName)
-    return cityName
+
+    return { cityName, latitude, longitude}
 
   } catch (error) {
     console.error("Error fetching city:", error)
