@@ -19,20 +19,18 @@ const Home = () => {
 
     const noMessages = !messages || messages.length === 0
 
-    const handlePromptClick = (promptText) => {
+    const weatherInfo = weatherData
+        ? ` The weather in ${weatherData.city} is currently ${weatherData.temperature}°F and ${weatherData.condition}.`
+        : '';
     
-        const weatherInfo = weatherData
-            ? ` The weather in ${weatherData.city} is currently ${weatherData.temperature}°C with ${weatherData.description}.`
-            : '';
-        
-        const combinedPrompt = promptText + weatherInfo;
+    const handlePromptClick = (promptText) => {
         
         const message: Message = {
             id: uuidv4(),
             content: promptText,
             role: 'user'
         }
-        console.log(message)
+        
         append(message)
     }
 
@@ -90,7 +88,13 @@ const Home = () => {
                 </div>
 
                 {/* Input Form */}
-                <form onSubmit={handleSubmit} className="flex items-center space-x-2">
+                <form onSubmit={event => {
+                    handleSubmit(event, {
+                        body: {
+                            customKey: weatherInfo,
+                        },
+                    });
+                }} className="flex items-center space-x-2">
                     <input
                         onChange={handleInputChange}
                         value={input}

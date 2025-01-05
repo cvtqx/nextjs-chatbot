@@ -10,7 +10,7 @@ interface WeatherInfo {
   humidity: number;     
 }
 
-const WeatherInfo = () => {
+const WeatherInfo = ({onWeatherData}) => {
   const [weather, setWeather] = useState<WeatherInfo | null>(null)
   
   useEffect(() => {
@@ -24,7 +24,8 @@ const WeatherInfo = () => {
         city: weatherData.city,
         humidity: weatherData.humidity,
       };
-      setWeather(weatherInfo);
+      setWeather(weatherInfo)
+      onWeatherData(weatherInfo)
     }
     fetchWeather()
   }, [])
