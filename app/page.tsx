@@ -54,7 +54,12 @@ const Home = () => {
                 <div className="max-h-full space-y-4 p-4 flex flex-col items-center">
                     {noMessages ? (
                         <>
-                            <div className="text-gray-600 overflow-none">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc venenatis, orci ut vestibulum euismod, felis risus mattis orci, ut commodo justo ligula vel libero.</div>
+                            <div className="text-gray-600 overflow-none text-justify leading-relaxed max-w-prose ">Whether you&apos; re looking to unwind, relieve tension, or deepen your practice, this chatbot is here to guide you through a gentle and soothing Yin Yoga session tailored to your needs.Simply type in your question or share how you&apos; re feeling, and let the chatbot create a calming lesson plan just for you.
+<br/>
+                                What&apos;s more, it will recommend poses that are perfectly suited for the current weather, helping you align your practice with nature&apos;s rhythm.
+                                <br />
+                                Take a deep breath, and let&apos;s begin your journey to relaxation and balance!
+</div>
                             
                             <PromptSuggestionRow onPromptClick={handlePromptClick} />
                            
