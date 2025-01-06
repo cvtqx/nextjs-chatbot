@@ -6,9 +6,6 @@ export const maxDuration = 30;
 export async function POST(req: Request) {
   try {
     const { messages, customKey } = await req.json();
-    //const latestMessage = messages[messages?.length - 1]?.content
-
-    console.log('customKey', customKey)
 
     const result = streamText({
       model: openai("gpt-4o"),
@@ -19,5 +16,4 @@ export async function POST(req: Request) {
   } catch (error) {
     console.error("Error getting response from openAI", error)
   }
-
 }
