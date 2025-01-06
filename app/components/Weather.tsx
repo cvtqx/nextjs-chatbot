@@ -37,16 +37,15 @@ const WeatherInfo = ({ onWeatherData }) => {
   }, [])
 
   return (
-    <div className="hidden md:block stats shadow w-48 text-sm">
+    <div className="stats shadow w-24 h-24 text-sm overflow-hidden">
       <div className="stat">
         {weather ? (
           <>
-            <div className="stat-title">{weather.city}</div>
-            <div className="stat-value">{weather.temperature}°F</div>
+            <div className="text-sm stat-value">{weather.temperature}°F</div>
             <div className="stat-desc">  <Image
 
-              width={50}
-              height={50}
+              width={70}
+              height={70}
               src={`http:${weather.icon}`}
               alt={weather.condition}
             /></div>
