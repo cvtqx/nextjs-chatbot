@@ -28,9 +28,9 @@ A calm and soothing Yin Yoga chatbot built with Next.js and TypeScript. This cha
    `npm install`
 3. Environment Variables
 
-  `OPENAI_API_KEY=your-openai-api-key`
-  `NEXT_PUBLIC_WEATHER_API_KEY=your-weather-api-key`
-  `NEXT_PUBLIC_OPENCAGEDATA_API_KEY=your-weather-api-key`
+>OPENAI_API_KEY=your-openai-api-key  
+>NEXT_PUBLIC_WEATHER_API_KEY=your-weather-api-key  
+>NEXT_PUBLIC_OPENCAGEDATA_API_KEY=your-weather-api-key
 
 4. Run the Development Server
 
