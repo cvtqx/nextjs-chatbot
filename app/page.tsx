@@ -14,7 +14,7 @@ import WeatherInfo from './components/Weather'
 import { useState } from 'react'
 
 const Home = () => {
-    const { append, isLoading, messages, input, handleInputChange, handleSubmit, stop } = useChat()
+    const { append, isLoading, messages, input, handleInputChange, handleSubmit, stop } = useChat({ experimental_throttle: 50 })
     const [weatherData, setWeatherData] = useState(null)
 
     const noMessages = !messages || messages.length === 0
@@ -71,19 +71,7 @@ const Home = () => {
                                 {isLoading && (
                                     <div className="flex justify-between">
                                         <LoadingBubble />
-                                        <button type="button" className="btn btn-circle btn-outline text-gray-400" onClick={() => stop()}> <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            className="h-6 w-6"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor">
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth="2"
-                                                d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
-                                        </button>
+                                        
                                     </div>
                                 
                             )}
@@ -100,12 +88,27 @@ const Home = () => {
                         },
                     });
                 }} className="flex items-center space-x-2">
+                    {isLoading && <button type="button" className="btn btn-circle btn-outline text-gray-400" onClick={() => stop()}> <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    </button>
+                    }
                     <input
                         onChange={handleInputChange}
                         value={input}
                         placeholder="Ask me something..."
                         className="w-full p-3 bg-gray-100 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500"
                     />
+                  
                     <button
                         type="submit"
                         className="p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none"
