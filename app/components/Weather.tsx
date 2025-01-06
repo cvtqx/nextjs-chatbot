@@ -3,16 +3,16 @@ import getCurrentWeather from "../utils/getWeather"
 import Image from "next/image"
 
 interface WeatherInfo {
-  temperature: number;   
-  condition: string;     
-  icon: string;         
-  city: string;          
-  humidity: number;     
+  temperature: number;
+  condition: string;
+  icon: string;
+  city: string;
+  humidity: number;
 }
 
-const WeatherInfo = ({onWeatherData}) => {
+const WeatherInfo = ({ onWeatherData }) => {
   const [weather, setWeather] = useState<WeatherInfo | null>(null)
-  
+
   useEffect(() => {
     const fetchWeather = async () => {
       const weatherData = await getCurrentWeather()
@@ -29,34 +29,34 @@ const WeatherInfo = ({onWeatherData}) => {
         }
         setWeather(weatherInfo)
         onWeatherData(weatherInfo)
-     
+
       };
-      
+
     }
     fetchWeather()
   }, [])
-  
+
   return (
-    <div className="stats shadow w-48 text-sm"> 
+    <div className="hidden md:block stats shadow w-48 text-sm">
       <div className="stat">
         {weather ? (
           <>
-      <div className="stat-title">{weather.city}</div>
-    <div className="stat-value">{weather.temperature}°F</div>
+            <div className="stat-title">{weather.city}</div>
+            <div className="stat-value">{weather.temperature}°F</div>
             <div className="stat-desc">  <Image
-              
-            width={50}
-            height={50}
-            src={`http:${weather.icon}`}
-            alt={weather.condition}
-          /></div>
+
+              width={50}
+              height={50}
+              src={`http:${weather.icon}`}
+              alt={weather.condition}
+            /></div>
           </>
-      ): ( 
+        ) : (
           <p>Loading weather data...</p>
         )}
       </div>
     </div>
-   )
+  )
 }
 
 export default WeatherInfo
