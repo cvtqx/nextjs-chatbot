@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, memo, useState } from "react"
 import getCurrentWeather from "../utils/getWeather"
 import Image from "next/image"
 
@@ -10,9 +10,15 @@ interface WeatherInfo {
   humidity: number;
 }
 
-const WeatherInfo = ({ onWeatherData }) => {
+interface WeatherInfoProps {
+  onWeatherData: (weatherData: WeatherInfo) => void
+}
+
+const WeatherInfo = ({ onWeatherData }: WeatherInfoProps) => {
   const [weather, setWeather] = useState<WeatherInfo | null>(null)
 
+  //console.log('weather rerendered')
+  
   useEffect(() => {
     const fetchWeather = async () => {
       const weatherData = await getCurrentWeather()
@@ -36,6 +42,8 @@ const WeatherInfo = ({ onWeatherData }) => {
     fetchWeather()
   }, [])
 
+ 
+
   return (
     <div className="stats shadow w-24 h-24 text-sm overflow-hidden">
       <div className="stat">
@@ -58,4 +66,4 @@ const WeatherInfo = ({ onWeatherData }) => {
   )
 }
 
-export default WeatherInfo
+export default memo(WeatherInfo)

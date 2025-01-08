@@ -11,7 +11,7 @@ import Bubble from './components/Bubble'
 import { v4 as uuidv4 } from 'uuid';
 
 import WeatherInfo from './components/Weather'
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 
 const Home = () => {
     const { append, isLoading, messages, input, handleInputChange, handleSubmit, stop } = useChat({ experimental_throttle: 50 })
@@ -22,7 +22,7 @@ const Home = () => {
     const weatherInfo = weatherData
         ? ` The weather in ${weatherData.city} is currently ${weatherData.temperature}°F and ${weatherData.condition}.`
         : '';
-    
+    console.log('weather', weatherInfo)
     const handlePromptClick = (promptText) => {
         
         const message: Message = {
@@ -34,9 +34,9 @@ const Home = () => {
         append(message)
     }
 
-    const handleWeatherData = (data) => {
+    const handleWeatherData = useCallback((data) => {
         setWeatherData(data)
-    }
+    }, [])
 
     return (
         <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
