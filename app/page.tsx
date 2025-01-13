@@ -14,9 +14,10 @@ import WeatherInfo from './components/Weather'
 import { useState, useCallback } from 'react'
 
 const Home = () => {
-    const { append, isLoading, messages, input, handleInputChange, handleSubmit, stop } = useChat({ experimental_throttle: 50 })
+    const { append, isLoading, messages, input, handleInputChange, handleSubmit, stop, reload } = useChat({ experimental_throttle: 50 })
     //experimental_throttle adjusts how frequently the hook updates certain properties or performs certain actions.
     const [weatherData, setWeatherData] = useState(null)
+    const [interrupted, setInterrupted] = useState(false);
 
     const noMessages = !messages || messages.length === 0
 
@@ -38,6 +39,17 @@ const Home = () => {
     const handleWeatherData = useCallback((data) => {
         setWeatherData(data)
     }, [])
+
+
+    const handleStopClick = () => {
+        stop()
+        setInterrupted(!interrupted)
+    }
+
+    const handleRegenerate = () => {
+        setInterrupted(!interrupted)
+        reload()
+    }
 
     return (
         <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
@@ -79,8 +91,9 @@ const Home = () => {
 
                         </div>
                     )}
+    
                 </div>
-
+        
                 {/* Input Form */}
                 <form onSubmit={event => {
                     handleSubmit(event, {
@@ -95,7 +108,7 @@ const Home = () => {
                         placeholder="Ask me something..."
                         className="w-full p-3 bg-gray-100 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500"
                     />
-                    {isLoading && <button type="button" className="btn btn-circle btn-outline text-gray-400" onClick={() => stop()}> <svg
+                    {isLoading && <button type="button" className="btn btn-circle btn-outline text-gray-400" onClick={handleStopClick}> <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-6 w-6"
                         fill="none"
@@ -109,11 +122,17 @@ const Home = () => {
                     </svg>
                     </button>
                     }
-                    {!isLoading && <button
+                    {!isLoading && !interrupted && <button
                         type="submit"
                         className="p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none"
                     >
                         Send
+                    </button>}
+                    {interrupted && !isLoading && <button type='button' onClick={handleRegenerate} disabled={isLoading} className="btn btn-circle btn-outline text-gray-400 hover:bg-gray-200">   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" id="Refresh">
+                        <path d="m38 16-8 8h6c0 6.63-5.37 12-12 12-2.03 0-3.93-.51-5.61-1.39l-2.92 2.92C17.95 39.08 20.86 40 24 40c8.84 0 16-7.16 16-16h6l-8-8zm-26 8c0-6.63 5.37-12 12-12 2.03 0 3.93.51 5.61 1.39l2.92-2.92C30.05 8.92 27.14 8 24 8 15.16 8 8 15.16 8 24H2l8 8 8-8h-6z" fill="#c6ccce" className="color000000 svgShape"></path>
+                        <path fill="none" d="M0 0h48v48H0z"></path>
+                    </svg>
+
                     </button>}
                    
                 </form>
@@ -123,3 +142,5 @@ const Home = () => {
 }
 
 export default Home
+
+
