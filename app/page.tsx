@@ -89,6 +89,12 @@ const Home = () => {
                         },
                     });
                 }} className="flex items-center space-x-2">
+                    <input
+                        onChange={handleInputChange}
+                        value={input}
+                        placeholder="Ask me something..."
+                        className="w-full p-3 bg-gray-100 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500"
+                    />
                     {isLoading && <button type="button" className="btn btn-circle btn-outline text-gray-400" onClick={() => stop()}> <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-6 w-6"
@@ -103,12 +109,6 @@ const Home = () => {
                     </svg>
                     </button>
                     }
-                    <input
-                        onChange={handleInputChange}
-                        value={input}
-                        placeholder="Ask me something..."
-                        className="w-full p-3 bg-gray-100 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500"
-                    />
                     {!isLoading && <button
                         type="submit"
                         className="p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none"
