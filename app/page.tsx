@@ -15,6 +15,7 @@ import { useState, useCallback } from 'react'
 
 const Home = () => {
     const { append, isLoading, messages, input, handleInputChange, handleSubmit, stop } = useChat({ experimental_throttle: 50 })
+    //experimental_throttle adjusts how frequently the hook updates certain properties or performs certain actions.
     const [weatherData, setWeatherData] = useState(null)
 
     const noMessages = !messages || messages.length === 0
@@ -108,13 +109,13 @@ const Home = () => {
                         placeholder="Ask me something..."
                         className="w-full p-3 bg-gray-100 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500"
                     />
-                  
-                    <button
+                    {!isLoading && <button
                         type="submit"
                         className="p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none"
                     >
                         Send
-                    </button>
+                    </button>}
+                   
                 </form>
             </section>
         </main>
