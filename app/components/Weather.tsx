@@ -16,8 +16,6 @@ interface WeatherInfoProps {
 
 const WeatherInfo = ({ onWeatherData }: WeatherInfoProps) => {
   const [weather, setWeather] = useState<WeatherInfo | null>(null)
-
-  //console.log('weather rerendered')
   
   useEffect(() => {
     const fetchWeather = async () => {
@@ -45,7 +43,7 @@ const WeatherInfo = ({ onWeatherData }: WeatherInfoProps) => {
  
 
   return (
-    <div className="stats shadow w-24 h-24 text-sm overflow-hidden">
+    <div className="stats  w-24 h-24 text-sm overflow-hidden">
       <div className="stat">
         {weather ? (
           <>

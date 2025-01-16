@@ -52,7 +52,7 @@ const Home = () => {
     }
 
     return (
-        <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+        <main className="flex flex-col items-center justify-center min-h-screen">
             {/* App Logo */}
             <div className="flex items-center justify-center py-4">
                 <Image src={appLogo} width="150" height="150" alt="app logo" />
@@ -67,7 +67,7 @@ const Home = () => {
                 <div className="max-h-full space-y-4 p-4 flex flex-col items-center">
                     {noMessages ? (
                         <>
-                            <div className="text-gray-600 overflow-none text-justify leading-relaxed max-w-prose ">This chatbot is here to guide you through a gentle Yin Yoga session, whether you&apos;re looking to unwind, relieve tension, or deepen your practice.
+                            <div className="overflow-none text-justify leading-relaxed max-w-prose ">This chatbot is here to guide you through a gentle Yin Yoga session, whether you&apos;re looking to unwind, relieve tension, or deepen your practice.
 <br/>
                                 Just ask and it will create a yin yoga lesson plan tailored to you, including poses suited for the current weather.
                                 <br />
@@ -106,9 +106,9 @@ const Home = () => {
                         onChange={handleInputChange}
                         value={input}
                         placeholder="Ask me something..."
-                        className="w-full p-3 bg-gray-100 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500"
+                        className="w-full p-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-limegreen"
                     />
-                    {isLoading && <button type="button" className="btn btn-circle btn-outline text-gray-400" onClick={handleStopClick}> <svg
+                    {isLoading && <button type="button" className="btn btn-circle btn-outline" onClick={handleStopClick}> <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-6 w-6"
                         fill="none"
@@ -124,12 +124,12 @@ const Home = () => {
                     }
                     {!isLoading && !interrupted && <button
                         type="submit"
-                        className="p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none"
+                        className="p-3 bg-limegreen text-white rounded-lg hover:bg-darkgreen focus:outline-none"
                     >
                         Send
                     </button>}
-                    {interrupted && !isLoading && <button type='button' onClick={handleRegenerate} disabled={isLoading} className="btn btn-circle btn-outline text-gray-400 hover:bg-gray-200">   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" id="Refresh">
-                        <path d="m38 16-8 8h6c0 6.63-5.37 12-12 12-2.03 0-3.93-.51-5.61-1.39l-2.92 2.92C17.95 39.08 20.86 40 24 40c8.84 0 16-7.16 16-16h6l-8-8zm-26 8c0-6.63 5.37-12 12-12 2.03 0 3.93.51 5.61 1.39l2.92-2.92C30.05 8.92 27.14 8 24 8 15.16 8 8 15.16 8 24H2l8 8 8-8h-6z" fill="#c6ccce" className="color000000 svgShape"></path>
+                    {interrupted && !isLoading && <button type='button' onClick={handleRegenerate} disabled={isLoading} className="btn btn-circle bg-limegreen hover:bg-darkgreen">   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" id="Refresh">
+                        <path d="m38 16-8 8h6c0 6.63-5.37 12-12 12-2.03 0-3.93-.51-5.61-1.39l-2.92 2.92C17.95 39.08 20.86 40 24 40c8.84 0 16-7.16 16-16h6l-8-8zm-26 8c0-6.63 5.37-12 12-12 2.03 0 3.93.51 5.61 1.39l2.92-2.92C30.05 8.92 27.14 8 24 8 15.16 8 8 15.16 8 24H2l8 8 8-8h-6z" fill="#fff" className="color000000 svgShape"></path>
                         <path fill="none" d="M0 0h48v48H0z"></path>
                     </svg>
 
