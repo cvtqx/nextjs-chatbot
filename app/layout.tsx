@@ -7,7 +7,13 @@ export const metadata = {
 
 const RootLayout = ({ children }) => {
     return (
-        <html lang = 'en'>
+        <html lang='en'>
+            <head>
+                <title>{metadata.title}</title>
+                <meta name="description" content={metadata.description} />
+                <link rel="icon" type="image/x-icon"
+                    href="/icon.ico" />
+            </head>
             <body>{children}</body>
         </html>
     )
