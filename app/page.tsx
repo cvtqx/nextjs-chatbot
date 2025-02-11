@@ -12,12 +12,14 @@ import { v4 as uuidv4 } from 'uuid';
 
 import WeatherInfo from './components/Weather'
 import { useState, useCallback } from 'react'
+import LocationInput from './components/LocationInput'
 
 const Home = () => {
     const { append, isLoading, messages, input, handleInputChange, handleSubmit, stop, reload } = useChat({ experimental_throttle: 50 })
     //experimental_throttle adjusts how frequently the hook updates certain properties or performs certain actions.
     const [weatherData, setWeatherData] = useState(null)
     const [interrupted, setInterrupted] = useState(false);
+    const [displayingWeather, setDisplayingWeather] = useState(false);
 
     const noMessages = !messages || messages.length === 0
 
@@ -26,13 +28,13 @@ const Home = () => {
         : '';
     console.log('weather', weatherInfo)
     const handlePromptClick = (promptText) => {
-        
+
         const message: Message = {
             id: uuidv4(),
             content: promptText,
             role: 'user'
         }
-        
+
         append(message)
     }
 
@@ -57,9 +59,9 @@ const Home = () => {
             <div className="flex items-center justify-center py-4">
                 <Image src={appLogo} width="150" height="150" alt="app logo" />
             </div>
-            <div className='absolute top-4 right-6'>
-                <WeatherInfo onWeatherData={handleWeatherData} />
-    </div>
+            <div className='flex flex-col absolute top-4 right-6'>
+                {displayingWeather ? (<WeatherInfo onWeatherData={handleWeatherData} />) : (<LocationInput />)}               
+            </div>
             {/* Chat Container */}
             <section className="w-full max-w-2xl bg-white rounded-xl shadow-xl p-6 space-y-4">
 
@@ -68,32 +70,28 @@ const Home = () => {
                     {noMessages ? (
                         <>
                             <div className="overflow-none text-justify leading-relaxed max-w-prose ">This chatbot is here to guide you through a gentle Yin Yoga session, whether you&apos;re looking to unwind, relieve tension, or deepen your practice.
-<br/>
+                                <br />
                                 Just ask and it will create a yin yoga lesson plan tailored to you, including poses suited for the current weather.
                                 <br />
                                 Take a deep breath, and let&apos;s begin your journey to relaxation and balance!
-</div>
-                            
+                            </div>
+
                             <PromptSuggestionRow onPromptClick={handlePromptClick} />
-                           
+
                         </>
                     ) : (
-                            <div className='flex flex-col gap-4 max-h-screen overflow-y-auto overflow-x-hidden'>
+                        <div className='flex flex-col gap-4 max-h-screen overflow-y-auto overflow-x-hidden'>
                             {/* Loop over messages and show them as bubbles */}
                             {messages.map((message, index) => <Bubble key={`message-${index}`} msg={message} />)}
-                                {isLoading && (
-                                    <div className="flex justify-between">
-                                        <LoadingBubble />
-                                        
-                                    </div>
-                                
+                            {isLoading && (
+                                <div className="flex justify-between">
+                                    <LoadingBubble />
+                                </div>
                             )}
-
                         </div>
                     )}
-    
                 </div>
-        
+
                 {/* Input Form */}
                 <form onSubmit={event => {
                     handleSubmit(event, {
@@ -124,7 +122,7 @@ const Home = () => {
                     }
                     {!isLoading && !interrupted && <button
                         type="submit"
-                        className="p-3 bg-limegreen text-white rounded-lg hover:bg-darkgreen focus:outline-none"
+                        className="p-3 bg-limegreen text-darkgrey rounded-lg hover:bg-darkgreen hover:text-white focus:outline-none"
                     >
                         Send
                     </button>}
@@ -134,7 +132,6 @@ const Home = () => {
                     </svg>
 
                     </button>}
-                   
                 </form>
             </section>
         </main>

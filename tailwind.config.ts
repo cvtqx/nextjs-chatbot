@@ -5,10 +5,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
         limegreen: "#82c6a4",
         darkgreen: "#81998D",
+        darkgrey: "4F4F4F",
       },
     },
   },

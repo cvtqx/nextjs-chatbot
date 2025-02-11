@@ -8,10 +8,12 @@ interface WeatherInfo {
   humidity: number;
 }
 
-export default async function getCurrentWeather(): Promise<WeatherInfo | string | null> {
+export default async function getCurrentWeather(location): Promise<WeatherInfo | string | null> {
   try {
-    const response = await getUserLocation();
+    const response = await getUserLocation(location);
 
+    console.log('response', response);
+    
     if (typeof response === 'string') {
     return "Unable to determine the weather";
   }

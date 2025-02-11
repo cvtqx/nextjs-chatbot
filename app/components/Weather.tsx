@@ -17,9 +17,11 @@ interface WeatherInfoProps {
 const WeatherInfo = ({ onWeatherData }: WeatherInfoProps) => {
   const [weather, setWeather] = useState<WeatherInfo | null>(null)
   
+  const location = 'moscow'
+  
   useEffect(() => {
     const fetchWeather = async () => {
-      const weatherData = await getCurrentWeather()
+      const weatherData = await getCurrentWeather(location)
 
       if (weatherData === null || typeof weatherData === 'string') {
         console.error("Error fetching weather data.")
@@ -39,8 +41,6 @@ const WeatherInfo = ({ onWeatherData }: WeatherInfoProps) => {
     }
     fetchWeather()
   }, [])
-
- 
 
   return (
     <div className="stats  w-24 h-24 text-sm overflow-hidden">
