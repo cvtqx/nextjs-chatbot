@@ -5,9 +5,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        limegreen: "#82c6a4",
-        darkgreen: "#81998D",
-        darkgrey: "4F4F4F",
+        primary: "#82c6a4", //limegreen
+        secondary: "#81998D", //darkgreen
+        accent: "4F4F4F", //darkgrey
       },
     },
   },

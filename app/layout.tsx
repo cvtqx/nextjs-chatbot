@@ -7,7 +7,7 @@ export const metadata = {
 
 const RootLayout = ({ children }) => {
     return (
-        <html lang='en' data-theme="nord">
+        <html lang='en' data-theme="light">
             <head>
                 <title>{metadata.title}</title>
                 <meta name="description" content={metadata.description} />

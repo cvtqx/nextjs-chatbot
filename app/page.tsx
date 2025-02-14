@@ -15,6 +15,9 @@ import { useState, useCallback } from 'react'
 import LocationInput from './components/LocationInput'
 
 const Home = () => {
+
+    const [location, setLocation] = useState('')
+
     const { append, isLoading, messages, input, handleInputChange, handleSubmit, stop, reload } = useChat({ experimental_throttle: 50 })
     //experimental_throttle adjusts how frequently the hook updates certain properties or performs certain actions.
     const [weatherData, setWeatherData] = useState(null)
@@ -53,6 +56,12 @@ const Home = () => {
         reload()
     }
 
+    const handleLocationChange = (newLocation) => {
+        setLocation(newLocation);
+        console.log('Location in parent', newLocation)
+        setDisplayingWeather(true)
+    }
+
     return (
         <main className="flex flex-col items-center justify-center min-h-screen">
             {/* App Logo */}
@@ -60,7 +69,7 @@ const Home = () => {
                 <Image src={appLogo} width="150" height="150" alt="app logo" />
             </div>
             <div className='flex flex-col absolute top-4 right-6'>
-                {displayingWeather ? (<WeatherInfo onWeatherData={handleWeatherData} />) : (<LocationInput />)}               
+                {displayingWeather ? (<WeatherInfo onWeatherData={handleWeatherData} location={location} />) : (<LocationInput onLocationChange={handleLocationChange} />)}
             </div>
             {/* Chat Container */}
             <section className="w-full max-w-2xl bg-white rounded-xl shadow-xl p-6 space-y-4">
@@ -104,7 +113,7 @@ const Home = () => {
                         onChange={handleInputChange}
                         value={input}
                         placeholder="Ask me something..."
-                        className="w-full p-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-limegreen"
+                        className="w-full p-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-primary"
                     />
                     {isLoading && <button type="button" className="btn btn-circle btn-outline" onClick={handleStopClick}> <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -122,11 +131,11 @@ const Home = () => {
                     }
                     {!isLoading && !interrupted && <button
                         type="submit"
-                        className="p-3 bg-limegreen text-darkgrey rounded-lg hover:bg-darkgreen hover:text-white focus:outline-none"
+                        className="p-3 bg-primary text-accent rounded-lg hover:bg-secondary hover:text-white focus:outline-none"
                     >
                         Send
                     </button>}
-                    {interrupted && !isLoading && <button type='button' onClick={handleRegenerate} disabled={isLoading} className="btn btn-circle bg-limegreen hover:bg-darkgreen">   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" id="Refresh">
+                    {interrupted && !isLoading && <button type='button' onClick={handleRegenerate} disabled={isLoading} className="btn btn-circle bg-primary hover:bg-secondary">   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" id="Refresh">
                         <path d="m38 16-8 8h6c0 6.63-5.37 12-12 12-2.03 0-3.93-.51-5.61-1.39l-2.92 2.92C17.95 39.08 20.86 40 24 40c8.84 0 16-7.16 16-16h6l-8-8zm-26 8c0-6.63 5.37-12 12-12 2.03 0 3.93.51 5.61 1.39l2.92-2.92C30.05 8.92 27.14 8 24 8 15.16 8 8 15.16 8 24H2l8 8 8-8h-6z" fill="#fff" className="color000000 svgShape"></path>
                         <path fill="none" d="M0 0h48v48H0z"></path>
                     </svg>
