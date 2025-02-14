@@ -2,8 +2,10 @@ import opencage from "opencage-api-client";
 
 interface OpenCageResponse {
   results: Array<{
-    components: {
-      town: string | undefined;
+    formatted: string;
+    geometry: {
+      lat: number | undefined,
+      lng: number | undefined,
     };
   }>;
 }
@@ -20,12 +22,14 @@ export default async function getUserLocation(location): Promise<
   const apiKey = process.env.NEXT_PUBLIC_OPENCAGEDATA_API_KEY;
 
   try {
-    const data = await opencage.geocode({ q: location, key: apiKey });
+    const data: OpenCageResponse = await opencage.geocode({ q: location, key: apiKey });
 
     if (data.results && data.results.length > 0) {
       const latitude = data.results[0].geometry.lat;
       const longitude = data.results[0].geometry.lng;
-      return {cityName: 'Moscow', latitude, longitude}
+      const city = data.results[0].formatted;
+      console.log(data.results)
+      return {cityName: city, latitude, longitude}
     } else {
       return 'City not found'
     }

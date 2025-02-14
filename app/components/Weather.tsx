@@ -11,14 +11,14 @@ interface WeatherInfo {
 }
 
 interface WeatherInfoProps {
-  onWeatherData: (weatherData: WeatherInfo) => void
+  onWeatherData: (weatherData: WeatherInfo) => void;
+  location: string;
 }
 
-const WeatherInfo = ({ onWeatherData }: WeatherInfoProps) => {
+const WeatherInfo = ({ onWeatherData, location }: WeatherInfoProps) => {
   const [weather, setWeather] = useState<WeatherInfo | null>(null)
-  
-  const location = 'moscow'
-  
+
+  console.log('location in weather', location)
   useEffect(() => {
     const fetchWeather = async () => {
       const weatherData = await getCurrentWeather(location)
